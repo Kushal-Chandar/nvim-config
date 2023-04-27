@@ -6,5 +6,5 @@ git merge --allow-unrelated-histories --squash NvChad/v2.0
 git remote remove NvChad
 git checkout --ours .gitignore
 git add .gitignore
-rm -rf .github/
+git rm -r .github/
 git commit -m "update(NvChad): $(date +'%Y-%m-%d %H:%M:%S')"
