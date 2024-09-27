@@ -11,9 +11,3 @@ This sets up nvchad along with some intuitive remaps.
 ## setup_windows.ps1
 
 This PowerShell script adds a symbolic link pointing to the current directory to Neovim's Windows default path. Before generating a new symbolic link, it asks the user to confirm deletion of any folders or symbolic links with the same name that currently exist at the link path.
-
-## update_nvchad.sh
-
-- Before update make sure to backup all custom bindings.
-
-- The script updates the local Git repository with changes from NvChad/v2.5, and creates a new commit with a commit message that includes the current date and time.
