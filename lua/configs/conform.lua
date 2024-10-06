@@ -1,8 +1,14 @@
 local options = {
   formatters_by_ft = {
     lua = { "stylua" },
+    markdown = { "prettier" },
+
+    --web
     css = { "prettier" },
     html = { "prettier" },
+    javascript = { "prettierd", "prettier", stop_after_first = true },
+    json = { "prettier" },
+
     go = { "goimports", "gofmt" },
     python = function(bufnr)
       if require("conform").get_formatter_info("ruff_format", bufnr).available then
@@ -12,8 +18,6 @@ local options = {
       end
     end,
     rust = { "rustfmt", lsp_format = "fallback" },
-    javascript = { "prettierd", "prettier", stop_after_first = true },
-    json = { "prettier" },
   },
 
   format_on_save = {

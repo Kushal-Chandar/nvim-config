@@ -1,5 +1,10 @@
 # nvim-config
 
+- [nvim-config](#nvim-config)
+  - [Pre Setup](#pre-setup)
+  - [setup_windows.ps1](#setupwindowsps1)
+  - [Todo](#todo)
+
 A nvim configuratin written in lua.
 
 This sets up nvchad along with some intuitive remaps.
@@ -14,8 +19,9 @@ This PowerShell script adds a symbolic link pointing to the current directory to
 
 ## Todo
 
-- markdown preview, format, linting
+- setup linting
+- setup noice
 - code completion using ai
 - c / c++ formatting and linting
 - persisted.nvim
-- fix small ui issues related to windows terminal
+- nvterm full terminal pops up only after doing ctrl-x and i
