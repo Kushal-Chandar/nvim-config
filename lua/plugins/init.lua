@@ -1,44 +1,51 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "vim",
-        "lua",
-        "vimdoc",
-        "markdown",
-        "html",
-        "css",
-        "powershell",
-      },
-    },
+    opts = require "configs.treesitter",
   },
   {
     "stevearc/conform.nvim",
     event = "BufWritePre", -- format on save
-    opts = require "configs.conform",
-  },
-  {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown" },
-    build = function(plugin)
-      if vim.fn.executable "npx" == 1 then
-        local command = "cd " .. plugin.dir .. " && cd app && npx --yes yarn install && npm install"
-        os.execute(command)
-      elseif vim.fn.executable "npm" == 1 then
-        local command = "cd " .. plugin.dir .. " && cd app && npm install"
-        os.execute(command)
-      else
-        vim.cmd [[Lazy load markdown-preview.nvim]]
-        vim.fn["mkdp#util#install"]()
-      end
-    end,
+    cmd = "FormatToggle",
+    dependencies = require("configs.conform").dependencies,
+    config = require("configs.conform").config,
   },
   {
     "neovim/nvim-lspconfig",
+    config = require("configs.lspconfig").config,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    event = "CmdlineEnter",
+    dependencies = require("configs.cmp").add_dependencies,
+    config = require("configs.cmp").config,
+  },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    dependencies = require("configs.noice").dependencies,
+    opts = {},
+    config = require("configs.noice").config,
+  },
+  {
+    "mfussenegger/nvim-lint",
+    event = "BufWritePost", -- Automatically lint on file save
     config = function()
-      require "configs.lspconfig"
+      require("lint").linters_by_ft = {
+        python = { "ruff" },
+        lua = { "luacheck" },
+        javascript = { "eslint" },
+        typescript = { "eslint" },
+        sh = { "shellcheck" },
+        markdown = { "markdownlint" },
+      }
+
+      -- Auto-lint on file save
+      vim.api.nvim_create_autocmd("BufWritePost", {
+        callback = function()
+          require("lint").try_lint()
+        end,
+      })
     end,
   },
 }

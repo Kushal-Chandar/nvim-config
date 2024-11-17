@@ -20,8 +20,9 @@ This PowerShell script adds a symbolic link pointing to the current directory to
 ## Todo
 
 - setup linting
-- setup noice
+- inc rename, todo 
 - code completion using ai
 - c / c++ formatting and linting
+- setup noice
 - persisted.nvim
 - nvterm full terminal pops up only after doing ctrl-x and i
