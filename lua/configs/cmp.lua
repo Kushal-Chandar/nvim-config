@@ -28,7 +28,7 @@ M.config = function(_, opts)
   opts.formatting = {
     fields = { "kind", "abbr", "menu" },
     format = function(entry, vim_item)
-      local kind =
+      local fmt =
         require("lspkind").cmp_format { mode = "symbol_text", maxwidth = 50, ellipsis_char = "..." }(entry, vim_item)
       local source = ({
         nvim_lsp = "[LSP]",
@@ -42,14 +42,14 @@ M.config = function(_, opts)
         cmdline = "[CMD]",
       })[entry.source.name]
 
-      local strings = vim.split(kind.kind, "%s", { trimempty = true })
-      kind.kind = " " .. (strings[1] or "") .. " "
-      kind.menu = strings[2] ~= nil and ("   " .. (strings[2] or "")) or ""
-      kind.menu = source ~= nil and (kind.menu .. " - " .. source)
+      local strings = vim.split(fmt.kind, "%s", { trimempty = true })
+      fmt.kind = " " .. (strings[1] or "") .. " "
+      fmt.menu = strings[2] ~= nil and ("   " .. (strings[2] or "")) or ""
+      fmt.menu = source ~= nil and (fmt.menu .. " - " .. source)
 
       -- set grey menu
       vim.api.nvim_set_hl(0, "CmpItemMenu", { fg = "#808080" })
-      return kind
+      return fmt
     end,
   }
 

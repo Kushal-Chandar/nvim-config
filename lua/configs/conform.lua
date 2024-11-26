@@ -8,8 +8,9 @@ local options = {
     html = { "prettier" },
     javascript = { "prettierd", "prettier", stop_after_first = true },
     json = { "prettier" },
-
+    toml = { "taplo" },
     go = { "goimports", "gofmt" },
+
     python = function(bufnr)
       if require("conform").get_formatter_info("ruff_format", bufnr).available then
         return { "ruff_format" }

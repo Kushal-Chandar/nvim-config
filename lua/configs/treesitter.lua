@@ -1,18 +1,30 @@
 local options = {
   ensure_installed = {
     "vim",
+    "vimdoc",
     "lua",
     "regex",
+    -- "latex",
+
     "c",
-    "bash",
+    "cpp",
+    "cmake",
+    "python",
+    "rust",
+
     "markdown_inline",
-    "vimdoc",
     "markdown",
     "html",
     "css",
+    "javascript",
+    "typescript",
+    "json",
+    "jsonc",
+    "toml",
+
+    "bash",
     "powershell",
   },
 }
 
 return options
-

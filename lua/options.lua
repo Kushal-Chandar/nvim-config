@@ -29,3 +29,6 @@ o.tabstop = 4 -- Number of spaces that a <Tab> in the file counts for
 o.fixendofline = true -- Ensures that there's always an EOL at the end of the file
 o.eol = true -- Make sure the end of line is written
 o.endofline = true -- Always append a newline at the end of a file
+
+-- inc-rename
+o.inccommand = "split" -- create a window

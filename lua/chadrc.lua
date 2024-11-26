@@ -13,5 +13,9 @@ M.base46 = {
   -- 	["@comment"] = { italic = true },
   -- },
 }
+M.term = {
+  winopts = { signcolumn = "no" },
+  sizes = { vsp = 0.4 },
+}
 
 return M

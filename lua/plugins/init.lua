@@ -28,24 +28,26 @@ return {
     config = require("configs.noice").config,
   },
   {
+    "smjonas/inc-rename.nvim",
+    cmd = "IncRename",
+    config = require "configs.inc-rename",
+  },
+  {
+    "folke/todo-comments.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {},
+  },
+  {
+    "folke/trouble.nvim",
+    dependencies = require("configs.trouble").dependencies,
+    opts = require("configs.trouble").opts,
+    cmd = require("configs.trouble").cmd,
+    keys = require("configs.trouble").keys,
+  },
+  {
     "mfussenegger/nvim-lint",
-    event = "BufWritePost", -- Automatically lint on file save
-    config = function()
-      require("lint").linters_by_ft = {
-        python = { "ruff" },
-        lua = { "luacheck" },
-        javascript = { "eslint" },
-        typescript = { "eslint" },
-        sh = { "shellcheck" },
-        markdown = { "markdownlint" },
-      }
-
-      -- Auto-lint on file save
-      vim.api.nvim_create_autocmd("BufWritePost", {
-        callback = function()
-          require("lint").try_lint()
-        end,
-      })
-    end,
+    event = require("configs.nvim-lint").event,
+    config = require("configs.nvim-lint").config,
   },
 }
