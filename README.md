@@ -5,7 +5,7 @@
   - [setup_windows.ps1](#setup_windows.ps1)
   - [Todo](#todo)
 
-A nvim configuratin written in lua.
+A nvim configuration written in lua.
 
 This sets up nvchad along with some intuitive remaps.
 

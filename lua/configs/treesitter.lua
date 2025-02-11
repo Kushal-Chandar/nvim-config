@@ -16,7 +16,9 @@ local options = {
     "markdown",
     "html",
     "css",
+    "scss",
     "javascript",
+    "tsx",
     "typescript",
     "json",
     "jsonc",
@@ -25,6 +27,9 @@ local options = {
     "bash",
     "powershell",
   },
+  -- highlight = {
+  --   enable = true,
+  -- },
 }
 
 return options

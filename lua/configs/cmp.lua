@@ -28,8 +28,35 @@ M.config = function(_, opts)
   opts.formatting = {
     fields = { "kind", "abbr", "menu" },
     format = function(entry, vim_item)
-      local fmt =
-        require("lspkind").cmp_format { mode = "symbol_text", maxwidth = 50, ellipsis_char = "..." }(entry, vim_item)
+      local function overrides(entry_cp, vim_item_cp)
+        if not entry_cp.completion_item.documentation or (type(entry_cp.completion_item.documentation) ~= "string") then
+          return vim_item_cp
+        end
+
+        -- for tailwind css autocomplete colors
+        if vim_item_cp.kind == "Color" then
+          local hex_color = string.match(entry_cp.completion_item.documentation, "#(%x%x%x%x%x%x)")
+          if hex_color then
+            local group = "Tw_" .. hex_color
+            if vim.fn.hlID(group) < 1 then
+              vim.api.nvim_set_hl(0, group, { fg = "#" .. hex_color })
+            end
+            -- vim_item_cp.kind = "⬛" -- or "⬤" or anything
+            vim_item_cp.kind_hl_group = group
+            return vim_item_cp
+          end
+        end
+
+        return vim_item_cp
+      end
+
+      local fmt = require("lspkind").cmp_format {
+        mode = "symbol_text",
+        maxwidth = 50,
+        ellipsis_char = "...",
+        before = overrides,
+      }(entry, vim_item)
+
       local source = ({
         nvim_lsp = "[LSP]",
         nvim_lua = "[LUA]",
@@ -53,7 +80,6 @@ M.config = function(_, opts)
     end,
   }
 
-  -- for both search and commands completeopt don't auto select the first one
   local cmp = require "cmp"
   cmp.setup.cmdline("/", {
     completion = {

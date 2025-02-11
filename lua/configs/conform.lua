@@ -7,10 +7,16 @@ local options = {
     css = { "prettier" },
     html = { "prettier" },
     javascript = { "prettierd", "prettier", stop_after_first = true },
+    javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+    typescript = { "prettierd", "prettier", stop_after_first = true },
+    typescriptreact = { "prettierd", "prettier", stop_after_first = true },
     json = { "prettier" },
     toml = { "taplo" },
     go = { "goimports", "gofmt" },
 
+    cpp = { "clang-format" },
+    c = { "clang-format" },
+    cmake = { "cmake_format" },
     python = function(bufnr)
       if require("conform").get_formatter_info("ruff_format", bufnr).available then
         return { "ruff_format" }

@@ -39,10 +39,22 @@ M.config = function()
     },
   }
 
-  local servers = { "html", "cssls", "marksman", "ruff", "rust_analyzer", "taplo" }
+  local default_servers = {
+    "html",
+    "marksman",
+    "ruff",
+    "rust_analyzer",
+    "taplo",
+    "clangd",
+    "cmake",
+    "eslint",
+    "emmet_language_server",
+  }
+
+  --clangd = ln -s /path/to/myproject/build/compile_commands.json /path/to/myproject/, link compile_commands.json to root of project
 
   -- lsps with default config
-  for _, lsp in ipairs(servers) do
+  for _, lsp in ipairs(default_servers) do
     lspconfig[lsp].setup {
       on_attach = nvlsp.on_attach,
       on_init = nvlsp.on_init,
@@ -57,6 +69,35 @@ M.config = function()
   --   capabilities = nvlsp.capabilities,
   -- }
 
+  -- css
+  local tailwind_project_cache = nil
+  local function is_tailwind_project()
+    if tailwind_project_cache ~= nil then
+      return tailwind_project_cache
+    end
+
+    local package_json_path = vim.fn.getcwd() .. "/package.json"
+
+    if vim.fn.filereadable(package_json_path) == 1 then
+      local success, data = pcall(vim.fn.json_decode, vim.fn.readfile(package_json_path, "n"))
+
+      if success then
+        tailwind_project_cache = data.dependencies and data.dependencies.tailwindcss
+          or data.devDependencies and data.devDependencies.tailwindcss
+        return tailwind_project_cache
+      else
+        vim.notify("Error parsing package.json for Tailwind CSS: " .. package_json_path, vim.log.levels.ERROR)
+      end
+    end
+    tailwind_project_cache = false
+    return false
+  end
+  (is_tailwind_project() and lspconfig.tailwindcss or lspconfig.cssls).setup {
+    on_attach = nvlsp.on_attach,
+    on_init = nvlsp.on_init,
+    capabilities = nvlsp.capabilities,
+  }
+  --
   -- ruff
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("lsp_attach_disable_ruff_hover", { clear = true }),

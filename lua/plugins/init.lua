@@ -4,6 +4,13 @@ return {
     opts = require "configs.treesitter",
   },
   {
+    "nvim-treesitter/nvim-treesitter-context",
+    cmd = require("configs.treesitter-context").cmd,
+    event = require("configs.treesitter-context").event,
+    dependencies = require("configs.treesitter-context").dependencies,
+    config = require("configs.treesitter-context").config,
+  },
+  {
     "stevearc/conform.nvim",
     event = "BufWritePre", -- format on save
     cmd = "FormatToggle",
