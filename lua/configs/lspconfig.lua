@@ -9,6 +9,7 @@ M.config = function()
   -- below copy pasted defaults because i wanted to add settings
   dofile(vim.g.base46_cache .. "lsp")
   require("nvchad.lsp").diagnostic_config()
+  -- Lua
   lspconfig.lua_ls.setup {
     on_attach = nvlsp.on_attach,
     capabilities = nvlsp.capabilities,
@@ -39,37 +40,18 @@ M.config = function()
     },
   }
 
-  local default_servers = {
-    "html",
-    "marksman",
-    "ruff",
-    "rust_analyzer",
-    "taplo",
-    "clangd",
-    "cmake",
-    "eslint",
-    "emmet_language_server",
+  -- ESlint
+  lspconfig.eslint.setup {
+    on_attach = function(_, bufnr)
+      -- fix all on format
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = bufnr,
+        command = "EslintFixAll",
+      })
+    end,
   }
 
-  --clangd = ln -s /path/to/myproject/build/compile_commands.json /path/to/myproject/, link compile_commands.json to root of project
-
-  -- lsps with default config
-  for _, lsp in ipairs(default_servers) do
-    lspconfig[lsp].setup {
-      on_attach = nvlsp.on_attach,
-      on_init = nvlsp.on_init,
-      capabilities = nvlsp.capabilities,
-    }
-  end
-
-  -- configuring single server, example: typescript
-  -- lspconfig.ts_ls.setup {
-  --   on_attach = nvlsp.on_attach,
-  --   on_init = nvlsp.on_init,
-  --   capabilities = nvlsp.capabilities,
-  -- }
-
-  -- css
+  -- CSS
   local tailwind_project_cache = nil
   local function is_tailwind_project()
     if tailwind_project_cache ~= nil then
@@ -97,8 +79,9 @@ M.config = function()
     on_init = nvlsp.on_init,
     capabilities = nvlsp.capabilities,
   }
-  --
-  -- ruff
+
+  -- Python
+  -- Python.ruff
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("lsp_attach_disable_ruff_hover", { clear = true }),
     callback = function(args)
@@ -114,8 +97,8 @@ M.config = function()
     desc = "LSP: Disable hover capability from Ruff",
   })
 
-  -- pyright
-  require("lspconfig").pyright.setup {
+  -- Python.pyright
+  lspconfig.pyright.setup {
     settings = {
       pyright = {
         -- Using Ruff's import organizer
@@ -130,9 +113,41 @@ M.config = function()
     },
   }
 
+  -- Powershell
   lspconfig.powershell_es.setup {
     bundle_path = vim.fn.stdpath "data" .. "/mason/packages/powershell-editor-services",
   }
+
+  -- configuring single server, example: typescript
+  -- lspconfig.ts_ls.setup {
+  --   on_attach = nvlsp.on_attach,
+  --   on_init = nvlsp.on_init,
+  --   capabilities = nvlsp.capabilities,
+  -- }
+
+  -- servers with default configurations
+  local default_servers = {
+    "html",
+    "marksman",
+    "ruff",
+    "rust_analyzer",
+    "taplo",
+    "clangd",
+    "cmake",
+    "eslint",
+    "emmet_language_server",
+  }
+
+  --clangd = ln -s /path/to/myproject/build/compile_commands.json /path/to/myproject/, link compile_commands.json to root of project
+
+  -- lsps with default config
+  for _, lsp in ipairs(default_servers) do
+    lspconfig[lsp].setup {
+      on_attach = nvlsp.on_attach,
+      on_init = nvlsp.on_init,
+      capabilities = nvlsp.capabilities,
+    }
+  end
 end
 
 return M

@@ -34,6 +34,12 @@ return {
     opts = {},
     config = require("configs.noice").config,
   },
+  -- {
+  --   "stevearc/dressing.nvim",
+  --   event = "VeryLazy",
+  --   opts = {},
+  --   config = require("configs.dressing").config,
+  -- },
   {
     "smjonas/inc-rename.nvim",
     cmd = "IncRename",

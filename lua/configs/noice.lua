@@ -2,7 +2,15 @@ local M = {}
 
 M.dependencies = {
   "MunifTanjim/nui.nvim",
-  "rcarriga/nvim-notify",
+  {
+    "rcarriga/nvim-notify",
+    -- require("notify").setup { stages = "no_animation" }
+    -- <== This is the work around for transparent code actions
+    -- alternative -- using dressing.nvim (maybe later)
+    opts = {
+      stages = "no_animation",
+    },
+  },
 }
 
 local lsp_conf = {
