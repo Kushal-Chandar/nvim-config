@@ -8,6 +8,7 @@ M.add_dependencies = {
 
 M.config = function(_, opts)
   -- opts.sources[#opts.sources + 1] = { name = "codeium" }
+  opts.sources[#opts.sources + 1] = { name = "emoji" }
   opts.experimental = { ghost_text = true }
   -- opts.completion = { completeopt = "menu,menuone,noselect" }
 

@@ -1,9 +1,12 @@
 # nvim-config
 
+<!--toc:start-->
+
 - [nvim-config](#nvim-config)
   - [Pre Setup](#pre-setup)
-  - [setup_windows.ps1](#setup_windows.ps1)
+  - [Setup Windows Script](#setup-windows-script)
   - [Todo](#todo)
+  <!--toc:end-->
 
 A nvim configuration written in lua.
 
@@ -13,9 +16,12 @@ This sets up nvchad along with some intuitive remaps.
 
 - refer to nvchad install docs to match all pre requisites
 
-## setup_windows.ps1
+## Setup Windows Script
 
-This PowerShell script adds a symbolic link pointing to the current directory to Neovim's Windows default path. Before generating a new symbolic link, it asks the user to confirm deletion of any folders or symbolic links with the same name that currently exist at the link path.
+This PowerShell script adds a symbolic link pointing to the current directory
+to Neovim's Windows default path. Before generating a new symbolic link, it
+asks the user to confirm deletion of any folders or symbolic links with the
+same name that currently exist at the link path.
 
 ## Todo
 
@@ -23,5 +29,5 @@ This PowerShell script adds a symbolic link pointing to the current directory to
 - c / c++ formatting and linting
 - nvim-dap
 - nvim-surround neovim
-- code completion using ai
+- code completion using ai 🤞
 - persisted.nvim

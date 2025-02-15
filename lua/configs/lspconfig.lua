@@ -49,6 +49,8 @@ M.config = function()
         command = "EslintFixAll",
       })
     end,
+    on_init = nvlsp.on_init,
+    capabilities = nvlsp.capabilities,
   }
 
   -- CSS
@@ -134,7 +136,6 @@ M.config = function()
     "taplo",
     "clangd",
     "cmake",
-    "eslint",
     "emmet_language_server",
   }
 
