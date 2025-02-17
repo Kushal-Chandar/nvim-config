@@ -12,6 +12,7 @@ map("n", ";", ":", { desc = "CMD enter command mode" })
 map("n", "<leader>xx", function()
   require("nvchad.tabufline").close_buffer()
 end, { desc = "buffer close" })
+map("i", "<c-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { desc = "Manual signature help" })
 
 -- Noice
 map("n", "<leader>dn", "<cmd>NoiceDismiss<CR>", { desc = "NoiceDismiss" })

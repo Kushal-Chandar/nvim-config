@@ -16,6 +16,10 @@ M.base46 = {
   },
 }
 
+M.lsp = {
+  signature = false, -- handled by noice
+}
+
 M.ui = {
   statusline = {
     theme = "default",
