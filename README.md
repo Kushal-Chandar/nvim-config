@@ -23,6 +23,13 @@ to Neovim's Windows default path. Before generating a new symbolic link, it
 asks the user to confirm deletion of any folders or symbolic links with the
 same name that currently exist at the link path.
 
+## Linux Setup
+
+
+```bash
+cd ~/.config && git clone https://github.com/Kushal-Chandar/nvim-config.git nvim
+```
+
 ## Todo
 
 - cmake-tools
